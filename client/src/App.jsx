@@ -9,10 +9,12 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <img src={Logo} alt="Dizplai logo" />
-      <Stack spacing={4}>
-        <Poll />
-      </Stack>
+      <div className="container">
+        <img src={Logo} alt="Dizplai logo" />
+        <Stack spacing={4}>
+          <Poll />
+        </Stack>
+      </div>
     </QueryClientProvider>
   );
 }

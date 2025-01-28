@@ -6,6 +6,10 @@ import Typography from '@mui/material/Typography';
 const styles = {
   card: {
     width: '100%',
+    alignSelf: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     height: '8vh',
     backgroundColor: 'transparent',
     outline: 'solid white',

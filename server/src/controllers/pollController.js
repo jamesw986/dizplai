@@ -4,7 +4,11 @@ function send500Response(res, error) {
   console.error(error);
   res
     .status(error.status || 500)
-    .json({ status: 'FAILED', data: { error: error.message || error } });
+    .json({
+      status: 'FAILED',
+      message: error.message || error,
+      cause: error.cause,
+    });
 }
 
 async function createPoll(req, res) {
@@ -47,8 +51,6 @@ async function getPollVotes(req, res) {
 }
 
 async function voteOnPoll(req, res) {
-  console.log('request body: ', req.body);
-
   const { pollId, optionId } = req.body;
 
   try {
@@ -64,7 +66,7 @@ async function getActivePolls(req, res) {
   try {
     const activePolls = await pollService.getActivePolls();
 
-    return res.status(201).json(activePolls);
+    return res.status(200).json(activePolls);
   } catch (error) {
     send500Response(res, error);
   }

@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 
 const styles = {
   card: {
+    width: '100%',
+    alignSelf: 'center',
     outline: 'solid white',
     '&:hover': {
       backgroundColor: 'rgba(181, 153, 247, 0.62)',
@@ -15,14 +17,12 @@ const styles = {
 };
 
 export default function SubmitVote({ pollId, selectedOption, setVoted }) {
-  const mutation = useSubmitVote();
+  const mutation = useSubmitVote(setVoted);
 
   const handleClick = () => {
     const optionId = selectedOption._id;
 
     mutation.mutate({ pollId, optionId });
-
-    setVoted(true);
   };
 
   return (

@@ -1,32 +1,58 @@
 const Poll = require('../models/Poll');
 
 async function findActivePoll() {
-  return await Poll.findOne({ isActive: true });
+  try {
+    return await Poll.findOne({ isActive: true });
+  } catch (error) {
+    throw new Error('Failed to find active poll', { cause: error });
+  }
 }
 
 async function endActivePoll() {
-  return await Poll.updateOne({ isActive: true }, { isActive: false });
+  try {
+    return await Poll.updateOne({ isActive: true }, { isActive: false });
+  } catch (error) {
+    throw new Error('Failed to end active poll', { cause: error });
+  }
 }
 
 async function createPoll(pollOptions) {
-  const poll = new Poll(pollOptions);
-  return await poll.save();
+  try {
+    const poll = new Poll(pollOptions);
+    return await poll.save();
+  } catch (error) {
+    throw new Error('Failed to create poll', { cause: error });
+  }
 }
 
 async function findPollById(pollId) {
-  return await Poll.findById(pollId);
+  try {
+    return await Poll.findById(pollId);
+  } catch (error) {
+    throw new Error(`Failed to find poll with ID: ${pollId}`, { cause: error });
+  }
 }
 
 async function updatePollVotes(pollId, optionId) {
-  return await Poll.findByIdAndUpdate(
-    pollId,
-    { $inc: { 'votingOptions.$[elem].votes': 1 } },
-    { arrayFilters: [{ 'elem._id': optionId }], new: true },
-  );
+  try {
+    return await Poll.findByIdAndUpdate(
+      pollId,
+      { $inc: { 'votingOptions.$[elem].votes': 1 } },
+      { arrayFilters: [{ 'elem._id': optionId }], new: true },
+    );
+  } catch (error) {
+    throw new Error(`Failed to update votes for poll with ID ${pollId}`, {
+      cause: error,
+    });
+  }
 }
 
 async function findActivePolls() {
-  return await Poll.find({ isActive: true });
+  try {
+    return await Poll.find({ isActive: true });
+  } catch (error) {
+    throw new Error('Failed to find active polls', { cause: error });
+  }
 }
 
 module.exports = {

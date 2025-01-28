@@ -36,6 +36,7 @@ const styles = {
 };
 
 function calculateVotePercentage(optionVoteCount, totalPollVotes) {
+  if (optionVoteCount === 0) return 0;
   return (optionVoteCount / totalPollVotes) * 100;
 }
 
@@ -47,7 +48,7 @@ export default function PollResult({ option, totalVotes }) {
   return (
     <Card sx={styles.card}>
       <CardContent sx={styles.cardContent}>
-        <Box sx={styles.cardBox}>
+        <Box sx={styles.cardBox} data-testId="voteOption">
           <LinearProgress
             variant="determinate"
             value={votePercentage}

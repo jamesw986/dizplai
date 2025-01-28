@@ -1,0 +1,25 @@
+services:
+  mongo:
+    image: mongo
+    container_name: mongo-container
+    ports:
+      - '27017:27017'
+
+  server:
+    build: ./server
+    container_name: server-container
+    ports:
+      - '5000:5000'
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/dizplai
+      - PORT=5000
+    depends_on:
+      - mongo
+
+  client:
+    build: ./client
+    container_name: client-container
+    ports:
+      - '3000:80'
+    depends_on:
+      - server

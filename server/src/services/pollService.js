@@ -3,62 +3,87 @@ const pollRepository = require('../repositories/pollRepository');
 const voteRepository = require('../repositories/voteRepository');
 
 async function createPoll(pollOptions) {
-  await pollRepository.endActivePoll();
-  const poll = await pollRepository.createPoll(pollOptions);
+  try {
+    await pollRepository.endActivePoll();
+    const poll = await pollRepository.createPoll(pollOptions);
 
-  return poll;
+    if (!poll) {
+      throw new Error('Failed to create poll. Please try again');
+    }
+
+    return poll;
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function getPoll(pollId) {
-  const poll = await pollRepository.findPollById(pollId);
+  try {
+    const poll = await pollRepository.findPollById(pollId);
 
-  return poll;
+    if (!poll) {
+      throw new Error(`No poll found with ID ${pollId}`);
+    }
+
+    return poll;
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function getPollVotes(pollId) {
-  const votes = await voteRepository.findVotesByPollId(pollId);
+  try {
+    const votes = await voteRepository.findVotesByPollId(pollId);
 
-  const formattedVotes = votes.map((vote) => {
-    const poll = vote.pollId;
-    const chosenOption = poll.votingOptions.find(
-      (option) => option._id.toString() === vote.optionId.toString(),
-    );
+    if (!votes) {
+      throw new Error(`No votes found for poll with ID ${pollId}`);
+    }
 
-    return {
-      voteId: vote._id,
-      createdAt: vote.createdAt,
-      optionText: chosenOption.option,
-    };
-  });
+    const formattedVotes = votes.map((vote) => {
+      const poll = vote.pollId;
+      const chosenOption = poll.votingOptions.find(
+        (option) => option._id.toString() === vote.optionId.toString(),
+      );
 
-  return { pollId, votes: formattedVotes };
+      return {
+        voteId: vote._id,
+        createdAt: vote.createdAt,
+        optionText: chosenOption.option,
+      };
+    });
+
+    return { pollId, votes: formattedVotes };
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function voteOnPoll(pollId, optionId) {
-  // Updating the poll and creating a new vote record are wrapped in a transaction to ensure atomicity
-  // const session = await mongoose.startSession();
-  // session.startTransaction();
-
   await pollRepository.updatePollVotes(pollId, optionId);
   await voteRepository.createVote({ pollId, optionId });
-
-  // await session.commitTransaction();
-  // session.endSession();
 }
 
 async function getActivePolls() {
-  const activePolls = await pollRepository.findActivePolls();
+  try {
+    const activePolls = await pollRepository.findActivePolls();
 
-  const formattedPolls = activePolls.map((poll) => {
-    const { _id, question, votingOptions } = poll;
-    return {
-      id: _id.toString(),
-      question,
-      votingOptions,
-    };
-  });
+    if (!activePolls) {
+      throw new Error('There are no currently active polls');
+    }
 
-  return formattedPolls;
+    const formattedPolls = activePolls.map((poll) => {
+      const { _id, question, votingOptions } = poll;
+      return {
+        id: _id.toString(),
+        question,
+        votingOptions,
+      };
+    });
+
+    return formattedPolls;
+  } catch (error) {
+    throw error;
+  }
 }
 
 module.exports = {

@@ -9,7 +9,7 @@ export default function DisplayPoll({ pollData, setVoted }) {
 
   return (
     <Stack spacing={4}>
-      <Typography variant="h3" color="white">
+      <Typography variant="h5" color="white">
         {pollData.question}
       </Typography>
       <PollOptions

@@ -6,9 +6,9 @@ import PollResults from './PollResults';
 export default function Poll() {
   const [voted, setVoted] = useState(false);
 
-  const { isPending, isError, data, error } = useGetActivePoll();
+  const { isPending, isFetching, isError, data, error } = useGetActivePoll();
 
-  if (isPending) {
+  if (isPending || isFetching) {
     return <span>Loading poll...</span>;
   }
 
