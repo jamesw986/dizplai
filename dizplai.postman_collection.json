@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "895e5241-f65a-4f78-8033-4054ee5c459f",
+		"name": "dizplai",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28006869"
+	},
+	"item": [
+		{
+			"name": "http://localhost:5000/polls",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"question\": \"Who has won the most premier leagues?\",\n    \"votingOptions\": [\n        {\n            \"option\": \"Manchester City\"\n        },\n        {\n            \"option\": \"Chelsea\"\n        },\n        {\n            \"option\": \"Manchester United\"\n        },\n        {\n            \"option\": \"Arsenal\"\n        },\n        {\n            \"option\": \"Liverpool\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/polls",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"polls"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid http://localhost:5000/polls",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"question\": \"Should Pandas be allowed to pilot rockets?\",\n    \"votingOptions\": [\n        {\n            \"option\": \"Yes\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/polls",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"polls"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid 2 http://localhost:5000/polls",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"question\": \"What is the best cheese?\",\n    \"votingOptions\": [\n        {\n            \"option\": \"Cheddar\"\n        },\n        {\n            \"option\": \"Brie\"\n        },\n        {\n            \"option\": \"Mozzarella\"\n        },\n        {\n            \"option\": \"Feta\"\n        },\n        {\n            \"option\": \"Gouda\"\n        },\n        {\n            \"option\": \"Edam\"\n        },\n        {\n            \"option\": \"Camembert\"\n        },\n        {\n            \"option\": \"Parmesan\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/polls",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"polls"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

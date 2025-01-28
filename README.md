@@ -32,6 +32,8 @@ use dizplai
 To run the app in developer mode, please ensure all dependencies have been installed via **npm i** in each package, then run the following command in both the client and server directories: **npm run dev**
 The exposed ports are the same.
 
+A postman collection has been supplied with some example polls for testing. These can be found in the root directory.
+
 ## Assumptions
 
 - Only one poll can be active at a time. On creation of a poll, this poll becomes the active poll.
